@@ -3,3 +3,9 @@ body {
     height: 100vh;
     overflow: hidden;
 }
+
+.info {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+}
