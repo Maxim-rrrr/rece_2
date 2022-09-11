@@ -224,7 +224,6 @@ class Car {
 
             if (this.speed / this.maxSpeed > this.characteristics.adhesionCoefficient) {
                 this.directionInertia += (this.angle - this.directionInertia) * (1 - (((this.speed / this.maxSpeed) - this.characteristics.adhesionCoefficient) * 3))
-                console.log(this.angle - this.directionInertia)
             } else {
                 this.directionInertia = this.angle
             }
@@ -232,8 +231,6 @@ class Car {
 
             this.position.y -= this.speed / 3 * (Math.cos((this.directionInertia % 360) * (Math.PI / 180)))
             this.position.x += this.speed / 3 * (Math.sin((this.directionInertia % 360) * (Math.PI / 180)))
-
-            console.log(this.enginePower + ' ' + this.transmission + ' ' + this.switchingTransmission + ' ' + this.engineSpeed)
         }, 20)
     }
 
@@ -248,6 +245,14 @@ class Car {
         } 
 
         return this.speed
+    }
+
+    getEngineSpeed() {
+        return this.engineSpeed
+    }
+
+    getTransmission() {
+        return this.transmission
     }
 
     transmissionUp() {

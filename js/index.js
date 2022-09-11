@@ -23,6 +23,9 @@ app.ticker.add((delta) => {
     elapsed += delta;
 
     car.render()
-    document.querySelector('.info').innerHTML = Math.round(car.getSpeed()) + ' km/h'
+    document.querySelector('.speed').innerHTML = Math.round(car.getSpeed()) + ' km/h'
+    document.querySelector('.engineSpeed').innerHTML = Math.round(car.getEngineSpeed()) + ' об./мин.'
+    let transmission = car.getTransmission()
+    document.querySelector('.transmission').innerHTML = (transmission == 0 ? 'N' : transmission) + ' передача'
 });
 
