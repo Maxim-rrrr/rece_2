@@ -7,6 +7,21 @@ class Car {
 
     maxSpeed = this.characteristics.enginePowerLimit * 736 / this.characteristics.weight
     
+    keyDown = {
+        up: false,
+        bottom: false,
+      
+        right: false,
+        left: false,
+      
+        space: false
+    }
+
+    neuralInputValue = {
+        gas: 0,
+        rudder: 0.5,
+    }
+
     // Параметры поворота руля от 0 до 1 
     // 0 - max left, 1 - max right
     // В режиме control переводим нажатия пользователя в поворот руля
@@ -36,20 +51,13 @@ class Car {
         y: 100
     }
 
-    constructor(sprite=NaN, control = false) {
-        this.sprite = sprite
-        if (control) {
-            this.keyDown = {
-                up: false,
-                bottom: false,
-              
-                right: false,
-                left: false,
-              
-                space: false
-            }
+    control = false
+    neuralControl = false
 
-            document.addEventListener('keydown', event => {
+    constructor() {
+        // control
+        document.addEventListener('keydown', event => {
+            if (this.control) {
                 if (event.code == 'KeyW') {
                     this.keyDown.up = true
                 }
@@ -62,9 +70,11 @@ class Car {
                 if (event.code == 'KeyA') {
                     this.keyDown.left = true
                 } 
-            });
-    
-            document.addEventListener('keyup', event => {
+            }
+        });
+
+        document.addEventListener('keyup', event => {
+            if (this.control) {
                 if (event.code == 'KeyW') {
                     this.keyDown.up = false
                 }
@@ -77,10 +87,14 @@ class Car {
                 if (event.code == 'KeyA') {
                     this.keyDown.left = false
                 } 
-            });
+            }
+        });
 
-            setInterval(() => {
-                // Перевод нажатия клавишь в поворот руля
+
+        setInterval(() => {
+            // control
+            // Перевод нажатия клавишь в поворот руля
+            if (this.control) {
                 if (this.keyDown.right) {
                     if (this.rudder < 1) {
                         this.rudder += 0.05
@@ -134,15 +148,10 @@ class Car {
                         }
                     }
                 } 
-    
-            }, 20)
-        } else {
-            this.neuralInputValue = {
-                gas: 0,
-                rudder: 0.5,
             }
 
-            setInterval(() => {
+            // neuralControl
+            if (this.neuralControl) {
                 // Перевод ввод нейронки в нажатия педали газа
                 if (this.neuralInputValue.gas != this.gas) {
                     if (this.neuralInputValue.gas < this.gas) {
@@ -172,10 +181,9 @@ class Car {
                         }
                     }
                 }
-            }, 20)
-        }
+            }
 
-        setInterval(() => {
+
             // Рассчёт мощьности двигателя
             if (this.enginePower != this.gas) {
                 if (this.enginePower < this.gas) {
@@ -239,6 +247,55 @@ class Car {
         this.neuralInputValue.rudder = rudder
     }
 
+    // 0 - без контроля, 1 - ручное управление, 2 - управление нейронки
+    setDriver(id) {
+        if (id === 0) {
+            this.control = false
+            this.neuralControl = false
+            this.keyDown = {
+                up: false,
+                bottom: false,
+              
+                right: false,
+                left: false,
+              
+                space: false
+            }
+        
+            this.neuralInputValue = {
+                gas: 0,
+                rudder: 0.5,
+            }
+        } else if (id === 1) {
+            this.control = true
+            this.neuralControl = false
+            this.neuralInputValue = {
+                gas: 0,
+                rudder: 0.5,
+            }
+        } else if (id === 2) {
+            this.control = false
+            this.neuralControl = true
+            this.keyDown = {
+                up: false,
+                bottom: false,
+              
+                right: false,
+                left: false,
+              
+                space: false
+            }
+        }
+    }
+
+    setPosition(coord) {
+        this.position = coord 
+    }
+
+    setAngle(angle) {
+        this.angle = angle
+    }
+
     getSpeed(param = 'km/h') {
         if (param == 'km/h') {
             return this.speed * 3.6
@@ -253,6 +310,14 @@ class Car {
 
     getTransmission() {
         return this.transmission
+    }
+
+    getInfo() {
+        return {
+            speed: Math.round(this.getSpeed()) + ' km/h',
+            engineSpeed: Math.round(this.getEngineSpeed()) + ' об./мин.',
+            transmission: (this.getTransmission() == 0 ? 'N' : this.getTransmission()) + ' передача',
+        }
     }
 
     transmissionUp() {
@@ -275,11 +340,13 @@ class Car {
         }, 100)
     }
 
-    render () {
-        if (this.sprite) {
-            this.sprite.x = this.position.x
-            this.sprite.y = this.position.y
-            this.sprite.angle = this.angle
+    getParams() {
+        return {
+            x: this.position.x,
+            y: this.position.y,
+            angle: this.angle
         }
     }
 }
+
+export default Car

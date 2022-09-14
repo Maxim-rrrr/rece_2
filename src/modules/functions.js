@@ -3,7 +3,7 @@ function VEK(ax,ay,bx,by)//векторное произведение
 	return ax*by-bx*ay;
 }
 
-function cross(p1,p2,p3,p4) //проверка пересечения
+export function cross(p1,p2,p3,p4) //проверка пересечения
 {
 	var v1,v2,v3,v4;
  
@@ -14,3 +14,4 @@ function cross(p1,p2,p3,p4) //проверка пересечения
 	if(v1*v2<0 && v3*v4<0) return true;
 	else return false;
 }
+
