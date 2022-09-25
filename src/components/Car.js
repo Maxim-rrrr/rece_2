@@ -1,4 +1,4 @@
-import {useReducer} from 'react'
+import { useReducer } from 'react'
 import { Sprite, useTick} from '@inlet/react-pixi'
 
 import carImg from '../images/car.png'
@@ -21,32 +21,32 @@ const Car = (props) => {
     })
 
     const onDragStart = (event) => {
-        const sprite = event.currentTarget;
-        sprite.alpha = 0.5;
-        sprite.data = event.data;
-        sprite.dragging = true;
-      };
+      const sprite = event.currentTarget;
+      sprite.alpha = 0.5;
+      sprite.data = event.data;
+      sprite.dragging = true;
+    };
     
-      const onDragEnd = (event) => {
-        const sprite = event.currentTarget;
-        sprite.alpha = 1;
-        sprite.dragging = false;
-        sprite.data = null;
-      };
+    const onDragEnd = (event) => {
+      const sprite = event.currentTarget;
+      sprite.alpha = 1;
+      sprite.dragging = false;
+      sprite.data = null;
+    };
     
-      const onDragMove = (event) => {
-        const sprite = event.currentTarget;
-        if (sprite.dragging) {
-          const newPosition = sprite.data.getLocalPosition(sprite.parent);
-          props.car.setPosition({x: newPosition.x, y: newPosition.y})
-        }
-      };
-  
+    const onDragMove = (event) => {
+      const sprite = event.currentTarget;
+      if (sprite.dragging) {
+        const newPosition = sprite.data.getLocalPosition(sprite.parent);
+        props.car.setPosition({x: newPosition.x, y: newPosition.y})
+      }
+    };
+    
     return (
       <Sprite 
         image={carImg} 
-        height={52}
-        width={26}
+        height={36}
+        width={18}
         anchor={0.5}
         {...motion}
         interactive={props.interactive}

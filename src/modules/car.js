@@ -32,9 +32,9 @@ class Car {
     gas = 0
 
     // Параметр фактического угла повората машины, высчитывается со времение от rudder
-    angle = 180
+    angle = 76
     // Направление инерции
-    directionInertia = 180
+    directionInertia = 76
 
     // На сколько процентов работает двигатель
     enginePower = 0
@@ -47,14 +47,20 @@ class Car {
     speed = 0
 
     position = {
-        x: 100,
-        y: 100
+        x: 288, 
+        y: 213
     }
 
     control = false
     neuralControl = false
 
-    constructor() {
+    constructor(startParams) {
+        if (startParams) {
+            this.position = startParams.position
+            this.angle = startParams.angle
+            this.directionInertia = startParams.angle
+        }
+
         // control
         document.addEventListener('keydown', event => {
             if (this.control) {
@@ -290,10 +296,15 @@ class Car {
 
     setPosition(coord) {
         this.position = coord 
+
+        this.saveStartParams()
     }
 
     setAngle(angle) {
         this.angle = angle
+        this.directionInertia = angle
+
+        this.saveStartParams()
     }
 
     getSpeed(param = 'km/h') {
@@ -346,6 +357,14 @@ class Car {
             y: this.position.y,
             angle: this.angle
         }
+    }
+
+    saveStartParams() {
+        localStorage.setItem('carStartParam', JSON.stringify({
+                position: this.position,
+                angle: this.angle
+            })
+        )
     }
 }
 
