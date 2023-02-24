@@ -7,12 +7,16 @@ import Info from './components/Info.js'
 import Inteface from './components/Interface.js'
 import Walls from './components/Walls.js'
 import WallsClass from './modules/walls.js'
+import TrackClass from './modules/track.js'
+import Track from './components/Track.js'
 
 let carStartParam = JSON.parse(localStorage.getItem('carStartParam'))
 const car = new CarClass(carStartParam)
 
 let wallsStartParam = JSON.parse(localStorage.getItem('wallsStartParam'))
 const walls = new WallsClass(wallsStartParam)
+
+const track = new TrackClass(car, walls)
 
 function App() {
   const [screenWindow, setScreenWindow] = useState(window.innerWidth)
@@ -68,7 +72,6 @@ function App() {
   
   const addPoint = (event) => {
     if (editLine > -1) {
-      console.log(event)
       walls.addPoint(editLine, {x: event.data.global.x, y: event.data.global.y})
       pointsForRender()
     }
@@ -96,6 +99,7 @@ function App() {
       <Stage width={screenWindow} height={screenHeight} options ={{backgroundColor: 0xcccccc, interactive: true}}>
         <Sprite width={screenWindow} height={screenHeight} interactive buttonMode pointerup={addPoint} texture={PIXI.Texture.WHITE}/>
         <Walls lines={lines} points={points}/>
+        {/* <Track track={track}/> */}
         <Car car={car} infoUpdate={infoUpdate} interactive={carInteractive}/>
       </Stage>
       <Info {...info}/>

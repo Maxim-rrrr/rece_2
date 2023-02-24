@@ -1,4 +1,7 @@
 class Car {
+    width = 18
+    len = 36 
+
     characteristics = {
         adhesionCoefficient: 0.5,
         weight: 1960,
@@ -349,6 +352,34 @@ class Car {
             this.transmission -= 1
             this.switchingTransmission = false
         }, 100)
+    }
+
+    getBodyLine() {
+        let corner = (Math.atan(this.width / this.len) * 180) / Math.PI
+        let diagonal = Math.sqrt(this.width * this.width + this.len * this.len)
+        return [
+            [
+                {
+                    x: this.position.x + (diagonal / 2) * Math.sin((this.angle + corner) * (Math.PI / 180)),
+                    y: this.position.y - (diagonal / 2) * Math.cos((this.angle + corner) * (Math.PI / 180))
+                },
+                {
+                    x: this.position.x + (diagonal / 2) * Math.sin((this.angle + 180 - corner) * (Math.PI / 180)),
+                    y: this.position.y - (diagonal / 2) * Math.cos((this.angle + 180 - corner) * (Math.PI / 180))
+                }
+            ],
+            [
+                {
+                    x: this.position.x + (diagonal / 2) * Math.sin((this.angle - corner) * (Math.PI / 180)),
+                    y: this.position.y - (diagonal / 2) * Math.cos((this.angle - corner) * (Math.PI / 180))
+                },
+                {
+                    x: this.position.x + (diagonal / 2) * Math.sin((this.angle - 180 + corner) * (Math.PI / 180)),
+                    y: this.position.y - (diagonal / 2) * Math.cos((this.angle - 180 + corner) * (Math.PI / 180))
+                }
+            ]
+        ]
+
     }
 
     getParams() {

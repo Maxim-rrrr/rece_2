@@ -1,8 +1,5 @@
 import { useState, useCallback, useReducer } from 'react'
 import { Graphics } from '@inlet/react-pixi';
-import { Sprite, useTick} from '@inlet/react-pixi'
-// import pointImg from '../images/point.png'
-
 
 const Walls = (props) => {
     const Line = (props) => {
