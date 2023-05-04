@@ -15,3 +15,18 @@ export function cross(p1,p2,p3,p4) //проверка пересечения
 	else return false;
 }
 
+export function rand(min, max) {
+	return Math.random() * (max - min) + min;
+}
+
+export function randElements(arr) {
+	let result = []
+  
+	arr.forEach(elem => {
+	  if (rand(0, 10) > 5) {
+		result.push(elem)
+	  }
+	})
+	
+	return result
+}

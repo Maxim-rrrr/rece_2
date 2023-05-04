@@ -7,6 +7,25 @@ import Info from './components/Info.js'
 import Inteface from './components/Interface.js'
 import Walls from './components/Walls.js'
 import WallsClass from './modules/walls.js'
+import Layer from './modules/neuralNetwork/layer.js'
+import Neuron from './modules/neuralNetwork/neuron.js'
+import Net from './modules/neuralNetwork/net.js'
+
+
+
+
+// let l1 = new Layer(false, 7, 1, true)
+// l1.mutation()
+// console.log(l1)
+// let l2 = new Layer(l1.exportData())
+// console.log(l2.run([1,2,3,4,5,6,7]))
+let net = new Net(false, [6,7,8,7,6,5,4,3,2])
+net.mutation()
+console.log(net.run([1,2,3,4,5,6,7]))
+let net2 = new Net(net.exportData())
+console.log(net2.run([1,2,3,4,5,6,7]))
+
+
 
 let carStartParam = JSON.parse(localStorage.getItem('carStartParam'))
 const car = new CarClass(carStartParam)
