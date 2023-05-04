@@ -61,7 +61,7 @@ class Walls {
 
 const defaultLines =  [
     {
-        "points": [
+        points: [
             {
                 "x": 154.5454594609497,
                 "y": 262.72726042121354
@@ -202,7 +202,7 @@ const defaultLines =  [
         "cycle": true
     },
     {
-        "points": [
+        points: [
             {
                 "x": 225.45454921459722,
                 "y": 399.0908752972289

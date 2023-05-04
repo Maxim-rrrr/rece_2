@@ -7,6 +7,7 @@ import Info from './components/Info.js'
 import Inteface from './components/Interface.js'
 import Walls from './components/Walls.js'
 import WallsClass from './modules/walls.js'
+<<<<<<< HEAD
 import Layer from './modules/neuralNetwork/layer.js'
 import Neuron from './modules/neuralNetwork/neuron.js'
 import Net from './modules/neuralNetwork/net.js'
@@ -26,12 +27,18 @@ let net2 = new Net(net.exportData())
 console.log(net2.run([1,2,3,4,5,6,7]))
 
 
+=======
+import TrackClass from './modules/track.js'
+import Track from './components/Track.js'
+>>>>>>> e03925a2f8bf52cd30c19811d872eaab3eb171a7
 
 let carStartParam = JSON.parse(localStorage.getItem('carStartParam'))
 const car = new CarClass(carStartParam)
 
 let wallsStartParam = JSON.parse(localStorage.getItem('wallsStartParam'))
 const walls = new WallsClass(wallsStartParam)
+
+const track = new TrackClass(car, walls)
 
 function App() {
   const [screenWindow, setScreenWindow] = useState(window.innerWidth)
@@ -87,7 +94,6 @@ function App() {
   
   const addPoint = (event) => {
     if (editLine > -1) {
-      console.log(event)
       walls.addPoint(editLine, {x: event.data.global.x, y: event.data.global.y})
       pointsForRender()
     }
@@ -115,6 +121,7 @@ function App() {
       <Stage width={screenWindow} height={screenHeight} options ={{backgroundColor: 0xcccccc, interactive: true}}>
         <Sprite width={screenWindow} height={screenHeight} interactive buttonMode pointerup={addPoint} texture={PIXI.Texture.WHITE}/>
         <Walls lines={lines} points={points}/>
+        {/* <Track track={track}/> */}
         <Car car={car} infoUpdate={infoUpdate} interactive={carInteractive}/>
       </Stage>
       <Info {...info}/>
