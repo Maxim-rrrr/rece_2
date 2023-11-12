@@ -7,10 +7,11 @@ import Info from './components/Info.js'
 import Inteface from './components/Interface.js'
 import Walls from './components/Walls.js'
 import WallsClass from './modules/walls.js'
-<<<<<<< HEAD
 import Layer from './modules/neuralNetwork/layer.js'
 import Neuron from './modules/neuralNetwork/neuron.js'
 import Net from './modules/neuralNetwork/net.js'
+import TrackClass from './modules/track.js'
+import Track from './components/Track.js'
 
 
 
@@ -27,10 +28,6 @@ let net2 = new Net(net.exportData())
 console.log(net2.run([1,2,3,4,5,6,7]))
 
 
-=======
-import TrackClass from './modules/track.js'
-import Track from './components/Track.js'
->>>>>>> e03925a2f8bf52cd30c19811d872eaab3eb171a7
 
 let carStartParam = JSON.parse(localStorage.getItem('carStartParam'))
 const car = new CarClass(carStartParam)

@@ -82,7 +82,6 @@ export function cross(points1) {
 	return TempCheck()
 }
 
-<<<<<<< HEAD
 export function rand(min, max) {
 	return Math.random() * (max - min) + min;
 }
@@ -98,9 +97,7 @@ export function randElements(arr) {
 	
 	return result
 }
-=======
 // {x: num, y num}, {x: num, y num}
 export function distancePoints(point1, point2) {
 	return Math.sqrt(Math.pow(point2.x - point1.x, 2) + Math.pow(point2.y - point1.y, 2))
 }
->>>>>>> e03925a2f8bf52cd30c19811d872eaab3eb171a7
